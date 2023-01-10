@@ -4,9 +4,11 @@ import com.Attornatus.PeopleManagement.models.Address;
 import com.Attornatus.PeopleManagement.repositories.AddressRepository;
 import com.Attornatus.PeopleManagement.services.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class AddressServiceImplementation implements AddressService {
 
     @Autowired
@@ -31,7 +33,13 @@ public class AddressServiceImplementation implements AddressService {
     }
 
     @Override
-    public void delete(AddressService address) {
-        address.delete(address);
+    public Address findAddress(Address address) {
+        return addressRepository.findByLogradouroAndCepAndNumberAndCity(address.getLogradouro(),address.getCep(),
+                address.getNumber(),address.getCity()).get();
+    }
+
+    @Override
+    public void delete(Address address) {
+        addressRepository.delete(address);
     }
 }

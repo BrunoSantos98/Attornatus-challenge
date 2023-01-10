@@ -17,13 +17,47 @@ public class Person implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID personId;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="dd/MM/yyyy")
+    private String name;
+    @JsonFormat(pattern ="dd/MM/yyyy")
     private Date birthDate;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_person_id")
     private Set<Address> personAddress = new HashSet<>();
-    @OneToOne
-    @JoinColumn(name = "principal_address_id")
-    private  Address principalAddress;
+    private  UUID principalAddressId;
 
+    public UUID getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(UUID personId) {
+        this.personId = personId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public Set<Address> getPersonAddress() {
+        return personAddress;
+    }
+
+    public UUID getPrincipalAddressId() {
+        return principalAddressId;
+    }
+
+    public void setPrincipalAddressId(UUID principalAddressId) {
+        this.principalAddressId = principalAddressId;
+    }
 }

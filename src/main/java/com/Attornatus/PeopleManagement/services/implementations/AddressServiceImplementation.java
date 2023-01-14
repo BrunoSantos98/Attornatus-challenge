@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class AddressServiceImplementation implements AddressService {
@@ -30,6 +31,11 @@ public class AddressServiceImplementation implements AddressService {
             address = addressVerification.get();
         }
         return address;
+    }
+
+    @Override
+    public Optional<Address> findAddressById(UUID id) {
+        return addressRepository.findById(id);
     }
 
     @Override

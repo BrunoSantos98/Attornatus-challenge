@@ -15,8 +15,8 @@ public class Address implements Serializable {
     private UUID addressId;
     @Column(nullable = false,length = 120)
     private String logradouro;
-    @Column(nullable = false,length = 9)
-    private Integer cep;
+    @Column(nullable = false,length = 10)
+    private String cep;
     @Column(nullable = false,length = 8)
     private Integer number;
     @Column(nullable = false,length = 40)
@@ -25,7 +25,7 @@ public class Address implements Serializable {
     public Address() {
     }
 
-    public Address(UUID addressId, String logradouro, Integer cep, Integer number, String city) {
+    public Address(UUID addressId, String logradouro, String cep, Integer number, String city) {
         this.addressId = addressId;
         this.logradouro = logradouro;
         this.cep = cep;
@@ -49,11 +49,11 @@ public class Address implements Serializable {
         this.logradouro = logradouro;
     }
 
-    public Integer getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(Integer cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 

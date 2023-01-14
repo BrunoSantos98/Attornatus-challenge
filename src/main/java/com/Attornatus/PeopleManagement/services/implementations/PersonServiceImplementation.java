@@ -22,10 +22,8 @@ public class PersonServiceImplementation implements PersonService {
     @Override
     public Person savePerson(Person person){
         Iterator<Address> iterator = person.getPersonAddress().iterator();
-        Address personAddress = null;
-
-
-        personAddress = addrImp.saveAddress(iterator.next());
+        Address personAddress = addrImp.saveAddress(iterator.next());
+        person.getPersonAddress().clear();
         person.getPersonAddress().add(personAddress);
         person.setPrincipalAddressId(personAddress.getAddressId());
         return personRepository.save(person);
@@ -50,9 +48,8 @@ public class PersonServiceImplementation implements PersonService {
     }
 
     @Override
-    public List<Person> findPersonByPrincipalAddress(Address address) {
-        address = addrImp.findAddress(address);
-        return personRepository.findByPrincipalAddressId(address.getAddressId());
+    public List<Person> findPersonByPrincipalAddress(UUID id) {
+        return personRepository.findByPrincipalAddressId(id);
     }
 
     @Override
@@ -62,18 +59,14 @@ public class PersonServiceImplementation implements PersonService {
 
     @Override
     public Person updatePersonAddress(UUID id, Address address, boolean principalAddress) {
+        address = addrImp.saveAddress(address);
         Person person = findPersonById(id);
+        person.getPersonAddress().add(address);
         if(principalAddress){
-            address = addrImp.saveAddress(address);
             person.setPrincipalAddressId(address.getAddressId());
-            person.getPersonAddress().add(address);
-            savePerson(person);
-            return person;
-        }else{
-            person.getPersonAddress().add(address);
-            savePerson(person);
-            return person;
         }
+        savePerson(person);
+        return person;
     }
 
     @Override
@@ -86,8 +79,8 @@ public class PersonServiceImplementation implements PersonService {
     public Address findPrincipalAddres(UUID id) {
         Person person = findPersonById(id);
         UUID addressId = person.getPrincipalAddressId();
-        Address address = (Address) person.getPersonAddress().stream().filter(addr -> addr.getAddressId().equals(addressId));
-        return address;
+        Optional<Address> address = addrImp.findAddressById(addressId);
+        return address.get();
     }
 
     @Override

@@ -31,7 +31,7 @@ public class PersonController {
     }
 
     @GetMapping("/findById")
-    public ResponseEntity<Person> findPersonById(@PathVariable UUID id){
+    public ResponseEntity<Person> findPersonById(@RequestParam UUID id){
         return ResponseEntity.ok(personImp.findPersonById(id));
     }
 
@@ -41,8 +41,8 @@ public class PersonController {
     }
 
     @GetMapping("/findByPrincipalAddress")
-    public ResponseEntity<List<Person>> findPersonByPricniaplAddress(@RequestParam Address address){
-        return ResponseEntity.ok(personImp.findPersonByPrincipalAddress(address));
+    public ResponseEntity<List<Person>> findPersonByPricniaplAddress(@RequestParam UUID id){
+        return ResponseEntity.ok(personImp.findPersonByPrincipalAddress(id));
     }
 
     @GetMapping
@@ -51,7 +51,7 @@ public class PersonController {
     }
 
     @PatchMapping("/updatePersonAddress")
-    public ResponseEntity<Person> updatepersonAddress(@PathVariable UUID id,@RequestBody Address address,
+    public ResponseEntity<Person> updatepersonAddress(@RequestBody Address address, @RequestParam UUID id,
                                                       @RequestParam boolean principalAddress){
         return ResponseEntity.ok(personImp.updatePersonAddress(id,address,principalAddress));
     }

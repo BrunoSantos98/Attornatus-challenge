@@ -10,5 +10,5 @@ import java.util.UUID;
 @Repository
 public interface AddressRepository extends JpaRepository<Address, UUID>{
 
-    public Optional<Address> findByLogradouroAndCepAndNumberAndCity(String log, int cep, int number, String city);
+    public Optional<Address> findByLogradouroAndCepAndNumberAndCity(String log, String cep, int number, String city);
 }

@@ -25,6 +25,13 @@ public class Address implements Serializable {
     public Address() {
     }
 
+    public Address(String logradouro, String cep, Integer number, String city) {
+        this.logradouro = logradouro;
+        this.cep = cep;
+        this.number = number;
+        this.city = city;
+    }
+
     public Address(UUID addressId, String logradouro, String cep, Integer number, String city) {
         this.addressId = addressId;
         this.logradouro = logradouro;

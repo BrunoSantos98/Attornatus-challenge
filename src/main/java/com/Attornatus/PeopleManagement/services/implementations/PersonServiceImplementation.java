@@ -23,8 +23,6 @@ public class PersonServiceImplementation implements PersonService {
     public Person savePerson(Person person){
         Iterator<Address> iterator = person.getPersonAddress().iterator();
         Address personAddress = addrImp.saveAddress(iterator.next());
-        person.getPersonAddress().clear();
-        person.getPersonAddress().add(personAddress);
         person.setPrincipalAddressId(personAddress.getAddressId());
         return personRepository.save(person);
     }

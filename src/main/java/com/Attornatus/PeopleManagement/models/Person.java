@@ -25,6 +25,23 @@ public class Person implements Serializable {
     private Set<Address> personAddress = new HashSet<>();
     private  UUID principalAddressId;
 
+    public Person() {
+    }
+
+    public Person(String name, Date birthDate, Address personAddress) {
+        this.name = name;
+        this.birthDate = birthDate;
+        this.personAddress.add(personAddress);
+    }
+
+    public Person(UUID personId, String name, Date birthDate, Address personAddress, UUID principalAddressId) {
+        this.personId = personId;
+        this.name = name;
+        this.birthDate = birthDate;
+        this.personAddress.add(personAddress);
+        this.principalAddressId = principalAddressId;
+    }
+
     public UUID getPersonId() {
         return personId;
     }
